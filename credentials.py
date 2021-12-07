@@ -4,5 +4,5 @@ mysql_db_config = {
     'user': 'root',
     'password': '*Saltlake5',
     'port': 3306,
-    'database' : ''
+    'database' : 'spark_networks_test'
 }
