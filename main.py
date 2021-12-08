@@ -1,4 +1,5 @@
 from etl import *
+from db_connection import engine_connect_db
 
 # Extraction by requests
 jsonRespUser = make_request(
