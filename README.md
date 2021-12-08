@@ -17,7 +17,7 @@ pip install credentials
 pip install pymysql
 ```
 ##### A requirements.txt is available in the repository files. Also a virtual enviroment called env is part of the repository and is already prepared for the use of this project.
-This project was created to run in a MySQL database, please have a already set up MySQL Server to run this project.
+This project was created to run in a MySQL database, please have a already set up MySQL Server to run it.
 
 ## How to Use it:
 - Firstly dowload the repository.
