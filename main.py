@@ -1,8 +1,12 @@
 from etl import *
 
 # Extraction by requests
-jsonRespUser = make_request('https://619ca0ea68ebaa001753c9b0.mockapi.io/evaluation/dataengineer/jr/v1/users')
-jsonRespMessages = make_request('https://619ca0ea68ebaa001753c9b0.mockapi.io/evaluation/dataengineer/jr/v1/messages')
+jsonRespUser = make_request(
+    "https://619ca0ea68ebaa001753c9b0.mockapi.io/evaluation/dataengineer/jr/v1/users"
+)
+jsonRespMessages = make_request(
+    "https://619ca0ea68ebaa001753c9b0.mockapi.io/evaluation/dataengineer/jr/v1/messages"
+)
 
 # Transformation of data
 df_users = creating_user_df(jsonRespUser)
