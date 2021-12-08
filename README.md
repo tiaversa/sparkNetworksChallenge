@@ -36,6 +36,7 @@ mysql_db_config = {
 
 ## How does it work:
 ![](images/spark_networks_database - Page 2.png)
+The project begins by making requests from the data sources in a RestAPI, that in their place returns a JSON response that is storaded in the machines memory. In the next step the program flattens the data and adds the information into DataFrames for easier manipulation.
 
 ## Contributors:
 Timnna Aversa <timnaaversa@gmail.com>
