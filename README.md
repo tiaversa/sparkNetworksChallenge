@@ -36,7 +36,7 @@ mysql_db_config = {
 
 ## How does it work:
 ![](images/spark_networks_database_2.png)
-The project begins by making requests from the data sources in a RestAPI, wich returns a JSON response that is storaded in the machines memory. In the next step the program flattens the data and adds the information into DataFrames for easier manipulation. From the DataFrame first a cleaning of personal information is performed, then the information is casted into the right datatypes. And finally a connection to the database is performed, if the database of tables don't exists yet they are created and finally the data is uploaded into the database.
+The project begins by making requests from the data sources in a RestAPI, wich returns a JSON response that is storaded into variables in the program. In the next step the program flattens the data and adds the information into DataFrames for easier manipulation. From the DataFrame first a cleaning of personal information is performed, then the information is casted into the right datatypes. And finally a connection to the database is performed, if the database or tables don't exists yet they are created and finally the data is uploaded into the database.
 A group of queries are provided in the file sql_test,sql in which you may performe some tests in the information uploaded into the database.
 
 ## Contributors:
