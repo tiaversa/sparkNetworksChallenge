@@ -34,6 +34,9 @@ mysql_db_config = {
 - Run main.py
 - Utilize sql_test.sql to run queries in the new database.
 
+## How does it work:
+![](images/spark_networks_database - Page 2.png)
+
 ## Contributors:
 Timnna Aversa <timnaaversa@gmail.com>
 
