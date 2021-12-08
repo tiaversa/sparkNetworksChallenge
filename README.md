@@ -47,3 +47,5 @@ Timnna Aversa <timnaaversa@gmail.com>
 
 Licensed under the [MIT License](License).
 
+
+![](images/thanks.png)
