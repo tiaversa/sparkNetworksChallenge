@@ -1,26 +1,5 @@
-import requests
-import logging
-from requests import HTTPError
 import pandas as pd
 from datetime import date, datetime
-import sqlalchemy
-from credentials import mysql_db_config
-import sqlalchemy
-from sqlalchemy import *
-
-
-def make_request(url):
-    try:
-        responseUser = requests.get(url)
-        responseUser = responseUser.json()
-    except HTTPError as httpError:
-        logging.warning(f"HTTP Error occored: {httpError}.")
-        return "Error"
-    except Exception as err:
-        logging.warning(f"Other error occored: {err}.")
-        return "Error"
-    return responseUser
-
 
 def creating_user_df(jsonRespUser):
     # flattening JSON and creating a df
@@ -55,6 +34,7 @@ def creating_user_df(jsonRespUser):
     df_users["updatedAt"] = pd.to_datetime(df_users["updatedAt"])
     df_users["profile.isSmoking"] = df_users["profile.isSmoking"].astype("bool")
     df_users["profile.income"] = df_users["profile.income"].astype(float)
+    df_users["age"] = df_users["age"].astype(int)
     df_users["id"] = df_users["id"].astype(int)
     df_users = df_users.rename(columns={"id": "user_id"}, index={"ONE": "Row_1"})
     df_users = df_users.rename(
@@ -104,6 +84,7 @@ def creating_subscriptions_df(jsonRespUser):
         columns={"id": "user_id"}, index={"ONE": "Row_1"}
     )
     df_subscriptions["subscription_id"] = df_subscriptions.index + 1
+    df_subscriptions["subscription_id"] = df_subscriptions["subscription_id"].astype(int)
     df_subscriptions = df_subscriptions[
         [
             "subscription_id",
@@ -119,6 +100,7 @@ def creating_subscriptions_df(jsonRespUser):
 
 def creating_messages_df(jsonRespMessages):
     df_messages = pd.json_normalize(jsonRespMessages)
+    
     df_messages["createdAt"] = pd.to_datetime(df_messages["createdAt"])
     df_messages["id"] = df_messages["id"].astype(int)
     df_messages["receiverId"] = df_messages["receiverId"].astype(int)
@@ -129,60 +111,3 @@ def creating_messages_df(jsonRespMessages):
     df_messages = df_messages.drop(columns=["message"])
     df_messages = df_messages[["message_id", "createdAt", "receiverId", "senderId"]]
     return df_messages
-
-
-
-def load_user_df(engine, df_users):
-    df_users.to_sql(
-        "users",
-        engine,
-        if_exists="replace",
-        dtype={
-            "user_id": Integer,
-            "createdAt": DateTime,
-            "updatedAt": DateTime,
-            "city": String(32),
-            "country": String(32),
-            "domain": String(32),
-            "age": Integer,
-            "profile_gender": String(32),
-            "profile_isSmoking": Boolean,
-            "profile_profession": String(100),
-            "profile_income": Float,
-        },
-        index=False,
-    )
-
-
-def load_subscriptions_df(engine, df_subscriptions):
-    df_subscriptions.to_sql(
-        "subscriptions",
-        engine,
-        if_exists="replace",
-        dtype={
-            "subscription_id": Integer,
-            "createdAt": DateTime,
-            "startDate": DateTime,
-            "endDate": DateTime,
-            "status_subscription": String(32),
-            "amount": Float,
-            "user_id": Integer,
-        },
-        index=False,
-    )
-
-
-def load_messages_df(engine, df_messages):
-    df_messages.to_sql(
-        "messages",
-        engine,
-        if_exists="replace",
-        dtype={
-            "createdAt": DateTime,
-            "message_id": Integer,
-            "createdAt": DateTime,
-            "receiverId": String(32),
-            "senderId": String(32),
-        },
-        index=False,
-    )

@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+  sparknetworkschallenge:
+    image: spark_challenge
+    build:
+      context: .
+      dockerfile: python/Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - mysql_data:var/lib/mysql
+    depends_on:
+      - mysql_server
+
+
+  mysql_server:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_USER=ti
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=secret
+    ports:
+      - 3308:3306
+    volumes:
+      - mysql_data:
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  mysql_data:
+    driver: local
+
+
+
+
+
+def load_user_df(engine, df_users):
+    df_users.to_sql(
+        "users",
+        engine,
+        if_exists="replace",
+        dtype={
+            "user_id": Integer,
+            "createdAt": DateTime,
+            "updatedAt": DateTime,
+            "city": String(32),
+            "country": String(32),
+            "domain": String(32),
+            "age": Integer,
+            "profile_gender": String(32),
+            "profile_isSmoking": Boolean,
+            "profile_profession": String(100),
+            "profile_income": Float,
+        },
+        index=False,
+    )
+
+
+
+def load_messages_df(engine, df_messages):
+    df_messages.to_sql(
+        "messages",
+        engine,
+        if_exists="replace",
+        dtype={
+            "createdAt": DateTime,
+            "message_id": Integer,
+            "createdAt": DateTime,
+            "receiverId": String(32),
+            "senderId": String(32),
+        },
+        index=False,
+    )
+
+
+def load_subscriptions_df(engine, df_subscriptions):
+    df_subscriptions.to_sql(
+        "subscriptions",
+        engine,
+        if_exists="replace",
+        dtype={
+            "subscription_id": Integer,
+            "createdAt": DateTime,
+            "startDate": DateTime,
+            "endDate": DateTime,
+            "status_subscription": String(32),
+            "amount": Float,
+            "user_id": Integer,
+        },
+        index=False,
+    )
