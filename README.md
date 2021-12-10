@@ -7,19 +7,46 @@ This project is composed of an ETL challenge, combined with Python, SQL and git 
 With this project I create a database in the following format:
 ![](images/spark_networks_database.png)
 
+This project can be run on docker or in your personal machine.
+
 ## Requirements:
-For this project to sucessfully run the following installations are requered in the enviroment.
+
+[Docker](https://www.docker.com/products/docker-desktop) installed or the following modules:
 ```
-pip install requests
-pip install pandas
-pip install sqlalchemy
-pip install credentials
-pip install pymysql
+pandas==1.3.4
+PyMySQL==1.0.2
+requests==2.26.0
+SQLAlchemy==1.4.28
 ```
 ##### A requirements.txt is available in the python folder.
 
 ## How to Use it:
-- Firstly dowload the repository.
+- Firstly dowload the repository and unzip it, or git clone https://github.com/tiaversa/sparkNetworksChallenge.
+##### By Docker:
+run: 
+```
+cd python
+docker-compose up -d --build
+```
+
+#### To Get The Information In Your Local Server:
+WARNING: this project is not ready to commit for production local testing only. User be ware!
+
+- Install, initialize and activate a virtual enviroment with the following comands:
+```
+cd python
+pip install virtualenv
+virtualenv env
+
+# Activate enviroment with Mac and Linux:
+source myproject/venv/bin/activate
+# Activate enviroment with Windows:
+env\Scripts\activate.bat
+```
+- Install dependencies:
+```
+pip -r requirements.txt
+```
 - Open the file 'credentials.py' and edit with the information for you personal server.
 ```
 mysql_db_config = {
@@ -31,6 +58,9 @@ mysql_db_config = {
 }
 ```
 - Run main.py
+```
+python main.py
+```
 - Utilize sql_test.sql to run queries in the new database.
 
 ## How does it work:
