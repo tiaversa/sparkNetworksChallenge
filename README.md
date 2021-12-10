@@ -16,8 +16,7 @@ pip install sqlalchemy
 pip install credentials
 pip install pymysql
 ```
-##### A requirements.txt is available in the repository files. Also a virtual enviroment called env is part of the repository and is already prepared for the use of this project.
-This project was created to run in a MySQL database, please have an already set up MySQL Server to run it.
+##### A requirements.txt is available in the python folder.
 
 ## How to Use it:
 - Firstly dowload the repository.
