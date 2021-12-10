@@ -8,7 +8,7 @@ def str_to_numb(date):
 def yymm_format(date):
     YY = str(date)[:4]
     MM = str(date)[4:6]
-    return f'{YY}-{MM}'
+    return f'{YY}_{MM}'
 
 #create the while loop
 def month_loop(start_date, end_date, amount):
