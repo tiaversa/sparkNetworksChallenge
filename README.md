@@ -7,7 +7,8 @@ This project is composed of an ETL challenge, combined with Python, SQL and git 
 With this project I create a database in the following format:
 ![](images/spark_networks_database.png)
 
-This project can be run on docker or in your personal machine.
+### This project can be run on docker or in your personal machine.
+
 
 ## Requirements:
 
