@@ -1,10 +1,10 @@
 import pandas as pd
-from datetime import date, datetime
+from datetime import date
+from expode_log import add_log
 
 def creating_user_df(jsonRespUser):
     # flattening JSON and creating a df
-    df_users = pd.json_normalize(jsonRespUser)
-
+    df_users = pd.json_normalize(jsonRespUser, sep='_')
     # taking out personal information
     df_users["birthDate"] = pd.to_datetime(df_users["birthDate"])
     ## getting todays date
@@ -15,7 +15,7 @@ def creating_user_df(jsonRespUser):
     )
     ## extracting the domain
     df_users["domain"] = df_users["email"].str.split("@").str[1]
-    ## dropping unwanted columns
+    ## dropping columns for PII compliance and unwanted ones too
     df_users = df_users.drop(
         columns=[
             "firstName",
@@ -27,28 +27,15 @@ def creating_user_df(jsonRespUser):
             "email",
         ]
     )
-
-    # making sure that the fields have the write ... int, datetime, bollean, string
+    # making sure that the fields have the right ... int, datetime, bollean, string
     ## casting
     df_users["createdAt"] = pd.to_datetime(df_users["createdAt"])
     df_users["updatedAt"] = pd.to_datetime(df_users["updatedAt"])
-    df_users["profile.isSmoking"] = df_users["profile.isSmoking"].astype("bool")
-    df_users["profile.income"] = df_users["profile.income"].astype(float)
+    df_users["profile_isSmoking"] = df_users["profile_isSmoking"].astype("bool")
+    df_users["profile_income"] = df_users["profile_income"].astype(float)
     df_users["age"] = df_users["age"].astype(int)
     df_users["id"] = df_users["id"].astype(int)
     df_users = df_users.rename(columns={"id": "user_id"}, index={"ONE": "Row_1"})
-    df_users = df_users.rename(
-        columns={"profile.income": "profile_income"}, index={"ONE": "Row_1"}
-    )
-    df_users = df_users.rename(
-        columns={"profile.isSmoking": "profile_isSmoking"}, index={"ONE": "Row_1"}
-    )
-    df_users = df_users.rename(
-        columns={"profile.gender": "profile_gender"}, index={"ONE": "Row_1"}
-    )
-    df_users = df_users.rename(
-        columns={"profile.profession": "profile_profession"}, index={"ONE": "Row_1"}
-    )
     ## reorganizign the fields
     df_users = df_users[
         [
@@ -69,8 +56,9 @@ def creating_user_df(jsonRespUser):
 
 
 def creating_subscriptions_df(jsonRespUser):
+    jsonRespUser = add_log(jsonRespUser)
     df_subscriptions = pd.json_normalize(
-        jsonRespUser, meta=["id"], record_path=["subscription"]
+        jsonRespUser, meta=["id"], record_path=["subscription"], sep='_'
     )
     df_subscriptions["createdAt"] = pd.to_datetime(df_subscriptions["createdAt"])
     df_subscriptions["startDate"] = pd.to_datetime(df_subscriptions["startDate"])
@@ -85,17 +73,12 @@ def creating_subscriptions_df(jsonRespUser):
     )
     df_subscriptions["subscription_id"] = df_subscriptions.index + 1
     df_subscriptions["subscription_id"] = df_subscriptions["subscription_id"].astype(int)
-    df_subscriptions = df_subscriptions[
-        [
-            "subscription_id",
-            "createdAt",
-            "startDate",
-            "endDate",
-            "amount",
-            "status_subscription",
-            "user_id",
-        ]
-    ]
+    # shift column 'Name' to first position
+    first_column = df_subscriptions.pop("subscription_id")
+    # insert column using insert(position,column_name,first_column) function
+    df_subscriptions.insert(0, "subscription_id", first_column)
+    second_column = df_subscriptions.pop("user_id")
+    df_subscriptions.insert(1, "user_id", second_column)
     return df_subscriptions
 
 

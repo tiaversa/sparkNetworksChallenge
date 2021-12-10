@@ -7,6 +7,7 @@ from credentials import mysql_db_config
 import sqlalchemy
 from sqlalchemy import *
 
+
 def make_request(url):
     try:
         response_req = requests.get(url).json()

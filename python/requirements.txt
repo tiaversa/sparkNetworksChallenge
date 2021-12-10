@@ -1,7 +1,5 @@
-# To ensure app dependencies are ported from your virtual environment/host machine into your container, run 'pip freeze > requirements.txt' in the terminal to overwrite this file
 credentials==1.1
 pandas==1.3.4
 PyMySQL==1.0.2
 requests==2.26.0
 SQLAlchemy==1.4.27
-
