@@ -7,9 +7,11 @@ services:
       MYSQL_DATABASE: spark_networks_test
       MYSQL_USER: ti
       MYSQL_PASSWORD: secret
+    ports:
+      - 3306:3306
     networks:
       - app-tier
-
+  
   python_app:
     build:
       context: .
@@ -18,8 +20,10 @@ services:
       - mysql_db
     networks:
       - app-tier
-    command:
-      tail -f /dev/null #to keep the program on after running
+    restart: always
+    entrypoint:
+      "python /app/main.py"
+      
 
 networks:
   app-tier:
