@@ -2,7 +2,6 @@ from transformation import *
 from ext_load import *
 from db_connection import engine_connect_db
 import logging
-import luigi
 
 # Getting Logging to print on console
 logging.basicConfig(level = logging.INFO)
@@ -13,7 +12,10 @@ jsonRespUser = make_request(
 jsonRespMessages = make_request(
     "https://619ca0ea68ebaa001753c9b0.mockapi.io/evaluation/dataengineer/jr/v1/messages"
 )
-logging.info(f"JSON Loaded.")
+if ((jsonRespUser == 'Not found')or(jsonRespMessages == 'Not found')):
+    logging.warning(f"Request unsucessuful. Endpoint not found.")
+else:
+    logging.info(f"JSON Loaded.")
 
 # Transformation of data
 df_users = creating_user_df(jsonRespUser)
