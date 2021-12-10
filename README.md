@@ -29,8 +29,9 @@ run:
 cd python
 docker-compose up -d --build
 ```
+- Utilize sql_test.sql to run queries in the new database.
 
-#### To Get The Information In Your Local Server:
+#### By Loading Information In Your Local Server:
 WARNING: this project is not ready to commit for production local testing only. User be ware!
 
 - Install, initialize and activate a virtual enviroment with the following comands:
