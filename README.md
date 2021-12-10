@@ -40,7 +40,7 @@ The project begins by making requests from the data sources in a RestAPI, wich r
 ##### A group of queries are provided in the file sql_test,sql in which you may performe some tests in the information uploaded into the database.
 
 ## Contributors:
-Timnna Aversa <timnaaversa@gmail.com>
+Timnna Aversa < <timnaaversa@gmail.com> >
 
 ## License and Copyright
 © Timna Costa Aversa
