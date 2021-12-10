@@ -90,6 +90,7 @@ def creating_subscriptions_df(jsonRespUser):
             "subscription_id",
             "createdAt",
             "startDate",
+            "endDate",
             "amount",
             "status_subscription",
             "user_id",
