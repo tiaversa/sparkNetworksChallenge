@@ -10,7 +10,6 @@ from sqlalchemy import *
 def make_request(url):
     try:
         response_req = requests.get(url).json()
-        #response_req = response_req.json()
     except HTTPError as httpError:
         logging.warning(f"HTTP Error occored: {httpError}.")
         return "Error"

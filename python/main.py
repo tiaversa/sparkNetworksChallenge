@@ -4,6 +4,8 @@ from db_connection import engine_connect_db
 import logging
 import luigi
 
+# Getting Logging to print on console
+logging.basicConfig(level = logging.INFO)
 # Extraction by requests
 jsonRespUser = make_request(
     "https://619ca0ea68ebaa001753c9b0.mockapi.io/evaluation/dataengineer/jr/v1/users"
