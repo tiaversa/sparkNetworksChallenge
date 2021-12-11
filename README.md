@@ -32,7 +32,7 @@ docker-compose up -d --build
 - Utilize sql_test.sql to run queries in the new database.
 
 #### By Loading Information In Your Local Server:
-WARNING: this project is not ready to commit for production local testing only. User be ware!
+WARNING: this project is not ready to commit for production, local testing only. User be ware!
 
 - Install, initialize and activate a virtual enviroment with the following comands:
 ```
