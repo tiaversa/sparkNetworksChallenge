@@ -1,6 +1,5 @@
 import pandas as pd
 from datetime import date
-from expode_log import add_log
 
 def creating_user_df(jsonRespUser):
     # flattening JSON and creating a df
@@ -56,7 +55,6 @@ def creating_user_df(jsonRespUser):
 
 
 def creating_subscriptions_df(jsonRespUser):
-    jsonRespUser = add_log(jsonRespUser)
     df_subscriptions = pd.json_normalize(
         jsonRespUser, meta=["id"], record_path=["subscription"], sep='_'
     )
