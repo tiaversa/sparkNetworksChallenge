@@ -25,7 +25,7 @@ def load_df(engine, df, name):
         df.to_sql(
             name,
             engine,
-            if_exists="replace",
+            if_exists="append",
             index=False,
         )
     except Exception as err:
