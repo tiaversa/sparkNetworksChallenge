@@ -27,7 +27,7 @@ SQLAlchemy==1.4.28
 run: 
 ```
 cd python
-docker-compose up -d --build
+docker-compose up
 ```
 - Utilize sql_test.sql to run queries in the new database.
 
