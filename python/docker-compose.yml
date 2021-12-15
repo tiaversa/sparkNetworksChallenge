@@ -18,6 +18,8 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - mysql_db
+    links:
+      - mysql_db
     networks:
       - app-tier
     restart: always
